@@ -1,0 +1,12 @@
+{
+  "name": "QBitLab",
+  "domain": "qbitlab.tech",
+  "url": "https://qbitlab.tech",
+  "contact": {
+    "bookingUrl": null,
+    "whatsappNumber": null,
+    "whatsappMessage": "Hi QBitLab, I'd like to talk about a project.",
+    "formEndpoint": null,
+    "email": "info@qbitlab.tech"
+  }
+}
