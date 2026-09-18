@@ -279,13 +279,33 @@ function Unconfigured({ setting }: { setting: string }) {
   );
 }
 
+const PATH_ICONS = {
+  booking: (
+    <>
+      <rect x="4" y="5" width="16" height="15" rx="2.5" />
+      <path d="M4 9.5h16M8 3v4M16 3v4" />
+    </>
+  ),
+  whatsapp: (
+    <path d="M12 3.5c-4.7 0-8.5 3.3-8.5 7.4 0 2.3 1.2 4.4 3.2 5.8-.1.9-.5 2.1-1.4 3.1 1.6-.2 3-.8 4-1.5.9.3 1.8.4 2.7.4 4.7 0 8.5-3.3 8.5-7.4S16.7 3.5 12 3.5Z" />
+  ),
+  email: (
+    <>
+      <rect x="3.5" y="5.5" width="17" height="13" rx="2.5" />
+      <path d="m4.5 7 7.5 6 7.5-6" />
+    </>
+  ),
+};
+
 export function Contact() {
   const paths = [
     contact.booking || IS_DEV
       ? {
           key: 'booking',
+          icon: 'booking' as const,
           title: 'Book a call',
           body: 'Pick a time that suits you and tell us what’s taking up your week.',
+          meta: null,
           href: contact.booking,
           action: 'Choose a time',
           setting: 'contact.bookingUrl',
@@ -294,8 +314,10 @@ export function Contact() {
     contact.whatsapp || IS_DEV
       ? {
           key: 'whatsapp',
+          icon: 'whatsapp' as const,
           title: 'Message us on WhatsApp',
           body: 'Send a message from your phone and we’ll reply there.',
+          meta: null,
           href: contact.whatsapp,
           action: 'Open WhatsApp',
           setting: 'contact.whatsappNumber',
@@ -304,10 +326,12 @@ export function Contact() {
     contact.email || IS_DEV
       ? {
           key: 'email',
+          icon: 'email' as const,
           title: 'Send an email',
           body: 'Write to us directly and we’ll get back to you.',
+          meta: contact.email,
           href: contact.email ? `mailto:${contact.email}` : null,
-          action: contact.email ?? 'Open email',
+          action: 'Compose an email',
           setting: 'contact.email',
         }
       : null,
@@ -332,11 +356,17 @@ export function Contact() {
         </header>
 
         {paths.length > 0 && (
-          <div className="paths" style={{ ['--cols' as string]: paths.length }}>
+          <div className="paths">
             {paths.map((path) => (
               <div key={path.key} className="card">
+                <span className="card__icon" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round">
+                    {PATH_ICONS[path.icon]}
+                  </svg>
+                </span>
                 <h3 className="card__title">{path.title}</h3>
                 <p className="card__text">{path.body}</p>
+                {path.meta && <p className="card__meta">{path.meta}</p>}
                 {path.href ? (
                   <a className="pill" href={path.href} target="_blank" rel="noopener noreferrer">
                     {path.action}

@@ -30,7 +30,7 @@ export const SETS = {
   portrait: { width: 1080, height: 1920, quality: 0.82 },
 };
 
-const OBJECT_NAMES = ['speech-bubble', 'laptop', 'megaphone', 'calendar', 'puzzle', 'phone-app'];
+const OBJECT_NAMES = ['speech-bubble', 'laptop', 'megaphone', 'calendar', 'puzzle', 'phone-app', 'phone-call', 'earbud'];
 
 if (!['hero', 'stills', 'preview'].includes(mode)) {
   console.error('Usage:\n  render.mjs hero [--frames 120] [--out dir]\n  render.mjs stills [--out dir] [--size 2000]\n  render.mjs preview --p 0.1,0.5 [--variant landscape] [--out dir]');

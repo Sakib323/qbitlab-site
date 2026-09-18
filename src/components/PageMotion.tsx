@@ -1,14 +1,16 @@
 'use client';
 
 import { useGSAP } from '@gsap/react';
-import { gsap } from '@/lib/gsap';
+import { gsap, ScrollTrigger } from '@/lib/gsap';
 
 /**
  * The page's motion outside the hero, applied from data attributes so the
  * sections themselves stay Server Components:
  *
  * - `data-reveal`: headlines rise into place once as they enter.
- * - `data-zoom`: photo cards ease from 92% to full size, tied to the scroll.
+ * - `data-zoom`: object images rise, fade in, and ease up to full size as the
+ *   page scrolls them into view — a lighter echo of the hero's scroll-linked
+ *   motion, for the images carrying real weight on the page.
  *
  * Everything is visible in the HTML. Only elements still below the fold get
  * hidden, so nothing on screen flickers, and reduced motion skips it all.
@@ -34,13 +36,24 @@ export function PageMotion() {
       gsap.utils.toArray<HTMLElement>('[data-zoom]').forEach((el) => {
         gsap.fromTo(
           el,
-          { scale: 0.92 },
+          { scale: 0.82, y: 48, autoAlpha: 0 },
           {
             scale: 1,
+            y: 0,
+            autoAlpha: 1,
             ease: 'none',
-            scrollTrigger: { trigger: el, start: 'top bottom', end: 'top 35%', scrub: 0.5 },
+            scrollTrigger: { trigger: el, start: 'top 95%', end: 'top 32%', scrub: 0.6 },
           },
         );
+      });
+
+      // These images load lazily, well after ScrollTrigger's own start/end
+      // measurements settle — without a refresh once each one arrives, a
+      // trigger range can go stale and leave its image stuck invisible.
+      const images = gsap.utils.toArray<HTMLImageElement>('[data-zoom] img');
+      images.forEach((img) => {
+        if (img.complete) return;
+        img.addEventListener('load', () => ScrollTrigger.refresh(), { once: true });
       });
     });
 

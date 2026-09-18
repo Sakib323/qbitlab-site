@@ -14,6 +14,8 @@ const eslintConfig = defineConfig([
     "next-env.d.ts",
     // Kept for reference only; never shipped.
     ".archive/**",
+    // Local Netlify build cache.
+    ".netlify/**",
   ]),
 ]);
 

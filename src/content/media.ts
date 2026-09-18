@@ -49,15 +49,12 @@ const photo = (
 
 export const objects = {
   chatbots: rendered('chatbots', 'A speech bubble with three dots, mid-reply.', 1078, 969),
-  'voice-agents': photo(
+  'voice-agents': rendered(
     'voice-agents',
-    'A black rotary telephone with its handset resting on the cradle.',
-    1800,
-    1434,
-    'Katrin Hauf',
-    'https://unsplash.com/photos/l5NYUg6bkFA',
-    'Unsplash',
-    1.05,
+    'A phone mid-call, answered by the AI assistant, with a live waveform and transcript.',
+    552,
+    1140,
+    1.3,
   ),
   'workflow-automation': photo(
     'workflow-automation',
@@ -83,15 +80,7 @@ export const objects = {
   'mobile-apps': rendered('mobile-apps', 'A phone showing an app that lists the day’s handled work.', 484, 1001, 1.3),
   subscription: rendered('subscription', 'A calendar with one date marked.', 815, 905, 0.92),
   'extensions-plugins': rendered('extensions-plugins', 'A jigsaw piece.', 1103, 1079, 0.95),
-  'always-on': photo(
-    'always-on',
-    'A pair of over-ear headphones.',
-    1501,
-    1569,
-    'Jason Leung',
-    'https://unsplash.com/photos/xR4JHzr69Og',
-    'Unsplash',
-  ),
+  'always-on': rendered('always-on', 'A wireless earbud, just lifted out, beside its charging case.', 852, 848),
 } satisfies Record<string, ObjectImage>;
 
 /**

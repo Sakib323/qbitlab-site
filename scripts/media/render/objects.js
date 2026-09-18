@@ -5,7 +5,7 @@
 import * as THREE from 'three';
 import { planarUVs, roundedRect, slab } from './studio.js';
 import { createPhone } from './phone.js';
-import { createScreenCanvas, drawHeroScreen } from './screen.js';
+import { createScreenCanvas, drawCallScreen, drawHeroScreen } from './screen.js';
 
 export const SHELL = new THREE.MeshPhysicalMaterial({
   color: 0xf1f1f3,
@@ -316,6 +316,54 @@ function phoneApp() {
   return { group: phone.group, fov: 26, position: [0, 0, 4.6], target: [0, 0, 0] };
 }
 
+/** Voice agents: the same phone, mid-call, answered by the assistant. */
+function phoneCall() {
+  const canvas = createScreenCanvas();
+  drawCallScreen(canvas, 0.66, 42);
+  const phone = createPhone(canvas);
+  phone.group.rotation.set(-0.05, -0.38, 0.04);
+  return { group: phone.group, fov: 26, position: [0, 0, 4.6], target: [0, 0, 0] };
+}
+
+/** Always on: a wireless earbud, just lifted out, beside its charging case. */
+function earbud() {
+  const group = new THREE.Group();
+
+  const bud = new THREE.Group();
+  const head = new THREE.Mesh(new THREE.SphereGeometry(0.175, 48, 48), SHELL);
+  head.scale.set(1, 0.86, 0.92);
+  bud.add(head);
+  const stem = new THREE.Mesh(new THREE.CapsuleGeometry(0.052, 0.36, 8, 32), SHELL);
+  stem.position.set(0, -0.26, 0.05);
+  stem.rotation.x = -0.22;
+  bud.add(stem);
+  const tip = new THREE.Mesh(new THREE.CylinderGeometry(0.05, 0.046, 0.02, 32), DARK);
+  tip.position.set(0, -0.435, 0.135);
+  tip.rotation.x = -0.22;
+  bud.add(tip);
+  const seam = new THREE.Mesh(new THREE.TorusGeometry(0.053, 0.006, 12, 40), METAL);
+  seam.position.set(0, -0.075, 0.036);
+  seam.rotation.set(Math.PI / 2 - 0.22, 0, 0);
+  bud.add(seam);
+  bud.position.set(-0.3, 0.3, 0.22);
+  bud.rotation.set(0.08, 0.32, -0.16);
+  group.add(bud);
+
+  const caseGroup = new THREE.Group();
+  const body = new THREE.Mesh(slab(0.5, 0.64, 0.2, 0.22, 0.05, 10), SHELL);
+  caseGroup.add(body);
+  const led = new THREE.Mesh(new THREE.CylinderGeometry(0.012, 0.012, 0.005, 24), DARK.clone());
+  led.material.color.set(0x9a9a9f);
+  led.rotation.x = Math.PI / 2;
+  led.position.set(0, -0.14, 0.115);
+  caseGroup.add(led);
+  caseGroup.position.set(0.26, -0.24, -0.18);
+  caseGroup.rotation.set(-0.08, -0.26, 0.05);
+  group.add(caseGroup);
+
+  return { group, fov: 26, position: [0.15, 0.06, 4.15], target: [0, -0.02, 0] };
+}
+
 export const OBJECTS = {
   'speech-bubble': speechBubble,
   laptop,
@@ -323,4 +371,6 @@ export const OBJECTS = {
   calendar,
   puzzle,
   'phone-app': phoneApp,
+  'phone-call': phoneCall,
+  earbud,
 };

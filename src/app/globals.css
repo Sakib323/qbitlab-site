@@ -966,17 +966,32 @@
   }
   @media (min-width: 834px) {
     .paths {
-      grid-template-columns: repeat(var(--cols, 2), minmax(0, 1fr));
+      grid-template-columns: repeat(auto-fit, minmax(240px, 360px));
+      justify-content: start;
     }
   }
 
   .card {
     display: grid;
     align-content: start;
-    gap: 10px;
+    gap: 12px;
     padding: clamp(28px, 3vw, 44px);
     border-radius: var(--radius);
     background: var(--white);
+  }
+  .card__icon {
+    display: grid;
+    place-items: center;
+    width: 44px;
+    height: 44px;
+    margin-bottom: 6px;
+    border-radius: 50%;
+    background: var(--ink);
+    color: var(--white);
+  }
+  .card__icon svg {
+    width: 22px;
+    height: 22px;
   }
   .card__title {
     margin: 0;
@@ -986,8 +1001,14 @@
     letter-spacing: 0.007em;
   }
   .card__text {
-    margin: 0 0 12px;
+    margin: 0;
     color: var(--ink-2);
+  }
+  .card__meta {
+    margin: -6px 0 0;
+    font-size: 15px;
+    color: var(--ink);
+    font-weight: 500;
   }
   .card .pill {
     justify-self: start;

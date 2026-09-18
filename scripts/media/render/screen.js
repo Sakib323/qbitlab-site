@@ -485,6 +485,23 @@ function today(ctx, p) {
   homeIndicator(ctx);
 }
 
+/** A still of the in-call screen alone, for the voice-agents object image. */
+export function drawCallScreen(canvas, p, frame) {
+  const ctx = canvas.getContext('2d');
+  ctx.setTransform(1, 0, 0, 1, 0, 0);
+  ctx.globalAlpha = 1;
+  ctx.fillStyle = '#000';
+  ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+  ctx.save();
+  ctx.beginPath();
+  ctx.roundRect(BEZEL, BEZEL, canvas.width - 2 * BEZEL, canvas.height - 2 * BEZEL, DISPLAY_RADIUS);
+  ctx.clip();
+  ctx.setTransform(S, 0, 0, S, BEZEL, BEZEL);
+  call(ctx, p, frame);
+  ctx.restore();
+}
+
 /** Draws the screen for scroll progress `p` (0–1) at hero frame `frame`. */
 export function drawHeroScreen(canvas, p, frame) {
   const ctx = canvas.getContext('2d');
