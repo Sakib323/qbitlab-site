@@ -18,7 +18,7 @@ The site builds to plain static files in `out/`. Any static host serves it as-is
 
 GitHub's own documentation says GitHub Pages is "not intended for or allowed to be used as a free web-hosting service to run your online business." A lead-generation site for a services company sits squarely in that gray area, so GitHub Pages was ruled out even though DNS for `qbitlab.tech` used to point there. Netlify's free plan carries no such restriction, deploys from **private** repositories at no extra cost, and — unlike Cloudflare Pages — supports a bare apex domain (`qbitlab.tech`, no `www`) with a single `A` record, so Hostinger stays the DNS host; no nameserver migration required.
 
-1. Source lives in a private GitHub repo (`Sakib323/qbitlab-site`), connected to Netlify's own Git integration so every push to `main` builds and deploys automatically. `netlify.toml` in this repo sets the build command (`npm run build`) and publish directory (`out`).
+1. Source lives in a private GitHub repo (`Sakib323/qbitlab-site`), linked to the Netlify project `qbitlab-tech` so pushes to `main` build and deploy automatically. `netlify.toml` sets the build command (`npm run build`) and publish directory (`out`).
 2. Netlify site → Domain management → Add a domain → `qbitlab.tech`.
 3. At Hostinger (DNS for `qbitlab.tech`), point the domain at Netlify:
    - `A` record, host `@`, value `75.2.60.5` (Netlify's load-balancer IP)
