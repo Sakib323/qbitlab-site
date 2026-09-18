@@ -40,7 +40,14 @@ yarn-error.log*
 *.tsbuildinfo
 next-env.d.ts
 
-# previous design iterations (local reference only)
+# previous design iterations and internal planning notes (local reference only —
+# this repo is public, and these aren't meant for site visitors)
 /.archive/
-/.impeccable/reference/
-/.impeccable/review/
+/.impeccable/
+/PRODUCT.md
+/DEPLOY.md
+/AGENTS.md
+/CLAUDE.md
+
+# Local Netlify folder
+.netlify

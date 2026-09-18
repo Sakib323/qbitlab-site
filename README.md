@@ -5,7 +5,7 @@ QBitLab's official site, built as an Apple-style product page, and the reference
 ```bash
 npm install
 npm run dev        # http://localhost:3000
-npm run build      # static site in out/ — needs a contact path set first (see DEPLOY.md)
+npm run build      # static site in out/ — needs a contact path set first (src/content/site.json)
 ```
 
 ## Where things live
@@ -58,10 +58,3 @@ swift scripts/media/cutout.swift photo.jpg /tmp/objects/name.png --choke 1 --lar
 
 Then add the file to `src/content/media.ts` with its alt text, size, and credit — a photograph
 without a credit there is a bug, and the footer renders what it finds.
-
-## Design record
-
-- `PRODUCT.md` — confirmed product facts, and what must never be invented
-- `.impeccable/surfaces/` — the pinned visual direction for the home page
-- `DEPLOY.md` — hosting, DNS, and a security note about the current repository
-- `.archive/v1-design-annual/` — the first design, kept for reference (not deployed)
