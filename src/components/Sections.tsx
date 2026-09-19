@@ -9,11 +9,14 @@ const external = (href: string) =>
   href.startsWith('http') ? { target: '_blank', rel: 'noopener noreferrer' } : {};
 
 function ObjectPhoto({ image, sizes, eager = false }: { image: ObjectImage; sizes: string; eager?: boolean }) {
+  // The -900/-1800 suffixes name each file's longest side, but srcset needs real
+  // widths: a tall object's -1800 file is far narrower than 1800px.
+  const smallWidth = Math.round(image.width * Math.min(1, 900 / Math.max(image.width, image.height)));
   return (
     // eslint-disable-next-line @next/next/no-img-element
     <img
       src={`${image.base}-900.webp`}
-      srcSet={`${image.base}-900.webp 900w, ${image.base}-1800.webp 1800w`}
+      srcSet={`${image.base}-900.webp ${smallWidth}w, ${image.base}-1800.webp ${image.width}w`}
       sizes={sizes}
       alt={image.alt}
       width={image.width}
@@ -397,7 +400,7 @@ export function Footer({ nav }: { nav: { href: string; label: string }[] }) {
     <footer className="footer" data-nav-theme="light">
       <div className="wrap">
         <p className="footer__note">
-          The objects on this page are illustrations of what each service does. Five are rendered for
+          The objects on this page are illustrations of what each service does. Most are rendered for
           this site; the rest are licensed stock photographs, cut out from their backgrounds.
         </p>
         <details className="footer__credits">

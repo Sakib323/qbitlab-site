@@ -2,7 +2,7 @@
  * Every image the site ships, and where it came from.
  *
  * All of them are cut out: one object, on transparency, with no background of its
- * own, so it sits directly on the page. Five are rendered from the scene in
+ * own, so it sits directly on the page. Most are rendered from the scene in
  * scripts/media/render/ (see README); the rest are photographs whose background
  * was lifted by scripts/media/cutout.swift.
  */
@@ -66,14 +66,12 @@ export const objects = {
     'Pexels',
     1.2,
   ),
-  'knowledge-assistant': photo(
+  'knowledge-assistant': rendered(
     'knowledge-assistant',
-    'A stack of hardback books.',
-    1800,
-    1256,
-    'Debby Hudson',
-    'https://unsplash.com/photos/6kQCkyNW3gY',
-    'Unsplash',
+    'A database with one document lifted out of it, a passage highlighted.',
+    780,
+    1325,
+    1.2,
   ),
   'ai-websites': rendered('ai-websites', 'An open laptop showing a business website with a chat button.', 1343, 1110, 1.1),
   'landing-pages': rendered('landing-pages', 'A megaphone.', 1131, 1216),

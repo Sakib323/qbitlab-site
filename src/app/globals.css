@@ -957,6 +957,82 @@
     font-size: 12px;
   }
 
+  /* ---------------------------------------------------------- research */
+
+  .research__lead {
+    max-width: 640px;
+    margin: 0 auto;
+    text-align: center;
+  }
+  .research__name,
+  .research__text {
+    display: inline;
+    margin: 0;
+    font-size: clamp(19px, 0.5vw + 17px, 24px);
+    line-height: 1.42;
+    letter-spacing: -0.012em;
+  }
+  .research__name {
+    font-weight: 600;
+    color: var(--on-dark);
+  }
+  .research__text {
+    color: var(--on-dark-2);
+  }
+
+  .research__figure {
+    max-width: 760px;
+    margin: clamp(40px, 6vh, 64px) auto 0;
+  }
+  .research__figure svg {
+    display: block;
+    width: 100%;
+    height: auto;
+    overflow: visible;
+  }
+
+  .research__steps {
+    display: grid;
+    gap: 20px;
+    max-width: 960px;
+    margin: clamp(40px, 6vh, 64px) auto 0;
+    padding: 0;
+    list-style: none;
+  }
+  @media (min-width: 834px) {
+    .research__steps {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 40px;
+    }
+  }
+  .research__steps li {
+    display: grid;
+    grid-template-columns: 40px 1fr;
+    gap: 14px;
+    align-items: start;
+    font-size: 17px;
+    line-height: 1.47;
+    color: var(--on-dark);
+  }
+  .research__swatch {
+    width: 40px;
+    height: 28px;
+    overflow: visible;
+  }
+
+  .research__actions {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 14px;
+    margin-top: clamp(48px, 7vh, 72px);
+  }
+  .research__note {
+    font-size: 12px;
+    letter-spacing: 0.02em;
+    color: var(--on-dark-2);
+  }
+
   /* ----------------------------------------------------------- contact */
 
   .paths {

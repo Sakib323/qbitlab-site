@@ -1,12 +1,13 @@
 import { LocalNav, type NavItem } from '@/components/LocalNav';
 import { PageMotion } from '@/components/PageMotion';
+import { Research } from '@/components/Research';
 import { AlwaysOn, Chapter, Contact, Footer, Handles, Intro, Process, Work } from '@/components/Sections';
 import { SequenceHero } from '@/components/SequenceHero';
 import { projects } from '@/content/projects';
 import { SITE } from '@/content/site';
 
-// A Server Component: only the nav, the hero sequence, page motion, and the
-// inquiry form ship JavaScript.
+// A Server Component: only the interactive pieces — nav, hero sequence, tabs,
+// research diagram, page motion, and inquiry form — ship JavaScript.
 export default function Home() {
   const nav: NavItem[] = [
     { href: '#conversations', label: 'Conversations' },
@@ -14,6 +15,7 @@ export default function Home() {
     { href: '#websites-apps', label: 'Websites & apps' },
     { href: '#how-it-works', label: 'How it works' },
     ...(projects.length > 0 ? [{ href: '#work', label: 'Work' } as NavItem] : []),
+    { href: '#research', label: 'Research' },
     { href: '#contact', label: 'Contact' },
   ];
 
@@ -45,6 +47,7 @@ export default function Home() {
         <Chapter index={2} />
         <Process />
         <Work />
+        <Research />
         <Contact />
       </main>
       <Footer nav={nav} />

@@ -364,6 +364,83 @@ function earbud() {
   return { group, fov: 26, position: [0.15, 0.06, 4.15], target: [0, -0.02, 0] };
 }
 
+/** A disc with softly rounded top and bottom edges, turned on a lathe. */
+function roundedDisc(r, h, bevel, segments = 160) {
+  const pts = [new THREE.Vector2(0, -h / 2)];
+  const steps = 12;
+  for (let i = 0; i <= steps; i++) {
+    const a = -Math.PI / 2 + (i / steps) * (Math.PI / 2);
+    pts.push(new THREE.Vector2(r - bevel + Math.cos(a) * bevel, -h / 2 + bevel + Math.sin(a) * bevel));
+  }
+  for (let i = 0; i <= steps; i++) {
+    const a = (i / steps) * (Math.PI / 2);
+    pts.push(new THREE.Vector2(r - bevel + Math.cos(a) * bevel, h / 2 - bevel + Math.sin(a) * bevel));
+  }
+  pts.push(new THREE.Vector2(0, h / 2));
+  return new THREE.LatheGeometry(pts, segments);
+}
+
+/** Knowledge assistant: a database with one document lifted out, its passage marked. */
+function database() {
+  const group = new THREE.Group();
+  const shell = SHELL.clone();
+  shell.side = THREE.DoubleSide;
+  const glow = new THREE.MeshPhysicalMaterial({
+    color: 0x05070a,
+    roughness: 0.3,
+    // Kept low: tone mapping washes a brighter emissive out to pastel.
+    emissive: 0x0a7aff,
+    emissiveIntensity: 1.05,
+  });
+
+  const r = 0.62;
+  const h = 0.3;
+  const pitch = 0.37;
+  for (let i = 0; i < 3; i++) {
+    const tier = new THREE.Mesh(roundedDisc(r, h, 0.07), shell);
+    tier.position.y = i * pitch;
+    group.add(tier);
+    if (i < 2) {
+      const seam = new THREE.Mesh(new THREE.CylinderGeometry(r - 0.04, r - 0.04, pitch - h + 0.02, 160, 1, true), glow);
+      seam.position.y = i * pitch + pitch / 2;
+      group.add(seam);
+    }
+  }
+
+  const page = canvasTexture(780, 1000, (ctx, w) => {
+    ctx.fillStyle = '#ffffff';
+    ctx.fillRect(0, 0, w, 1000);
+    const bar = (x, y, width, height, color) => {
+      ctx.fillStyle = color;
+      ctx.beginPath();
+      ctx.roundRect(x, y, width, height, height / 2);
+      ctx.fill();
+    };
+    bar(64, 74, 360, 34, '#1d1d1f');
+    const grey = '#e3e3e8';
+    [600, 640, 560, 620].forEach((width, i) => bar(64, 170 + i * 50, width, 18, grey));
+    // The retrieved passage.
+    ctx.fillStyle = '#e8f1ff';
+    ctx.beginPath();
+    ctx.roundRect(40, 384, w - 80, 168, 22);
+    ctx.fill();
+    [620, 648, 470].forEach((width, i) => bar(64, 412 + i * 44, width, 20, '#0071e3'));
+    [630, 580, 640, 520, 600, 350].forEach((width, i) => bar(64, 600 + i * 50, width, 18, grey));
+  });
+
+  const card = new THREE.Group();
+  card.add(new THREE.Mesh(slab(0.56, 0.72, 0.045, 0.028, 0.009, 6), SHELL));
+  const face = panel(0.52, 0.68, 0.036, page);
+  face.position.z = 0.0145;
+  card.add(face);
+  card.position.set(0.02, 2 * pitch + h / 2 + 0.52, 0.04);
+  card.rotation.set(-0.16, 0.14, -0.05);
+  group.add(card);
+
+  group.rotation.y = -0.2;
+  return { group, fov: 26, position: [0.9, 2.2, 5.3], target: [0, 0.78, 0] };
+}
+
 export const OBJECTS = {
   'speech-bubble': speechBubble,
   laptop,
@@ -373,4 +450,5 @@ export const OBJECTS = {
   'phone-app': phoneApp,
   'phone-call': phoneCall,
   earbud,
+  database,
 };
