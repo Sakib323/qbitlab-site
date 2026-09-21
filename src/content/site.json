@@ -4,9 +4,10 @@
   "url": "https://qbitlab.tech",
   "contact": {
     "bookingUrl": null,
-    "whatsappNumber": null,
+    "whatsappNumber": "447448646549",
     "whatsappMessage": "Hi QBitLab, I'd like to talk about a project.",
     "formEndpoint": null,
-    "email": "info@qbitlab.tech"
+    "email": "info@qbitlab.tech",
+    "surveyEndpoint": null
   }
 }

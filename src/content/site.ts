@@ -9,6 +9,7 @@ import site from './site.json';
  * - whatsappNumber: international format, digits only (e.g. "8801XXXXXXXXX")
  * - formEndpoint:   a Formspree / Web3Forms form URL
  * - email:          an inbox that's actually read (needs working MX records)
+ * - surveyEndpoint: where /survey/ posts its answers (see README)
  */
 type Contact = {
   bookingUrl: string | null;
@@ -16,6 +17,7 @@ type Contact = {
   whatsappMessage: string;
   formEndpoint: string | null;
   email: string | null;
+  surveyEndpoint: string | null;
 };
 
 export const SITE = site as { name: string; domain: string; url: string; contact: Contact };
@@ -29,6 +31,7 @@ export const contact = {
     : null,
   form: SITE.contact.formEndpoint,
   email: SITE.contact.email,
+  survey: SITE.contact.surveyEndpoint,
 };
 
 /** Every "Book a call" control resolves somewhere real, even before the booking link exists. */

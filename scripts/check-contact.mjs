@@ -12,6 +12,11 @@ if (missing.length) {
   console.warn(`site.json: not configured yet (hidden in production): ${missing.join(', ')}`);
 }
 
+// /survey/ ships either way; without an endpoint its answers have nowhere to land.
+if (!contact.surveyEndpoint) {
+  console.warn('site.json: contact.surveyEndpoint is unset — /survey/ cannot save answers yet.');
+}
+
 if (configured.length === 0) {
   if (process.env.ALLOW_NO_CONTACT === '1') {
     console.warn('site.json: no contact path configured. Building anyway because ALLOW_NO_CONTACT=1 — do not deploy this build.');

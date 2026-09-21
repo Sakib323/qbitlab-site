@@ -1,6 +1,7 @@
 'use client';
 
 import { useRef, useState, type FormEvent } from 'react';
+import { checkField, checkRequired, clearField, type Messages } from '@/lib/form';
 
 type Status = { tone: 'idle' | 'sending' | 'sent' | 'error'; message: string };
 
@@ -12,7 +13,7 @@ const needs = [
   'Not sure yet',
 ];
 
-const messages: Record<string, (field: HTMLInputElement | HTMLTextAreaElement) => string> = {
+const messages: Messages = {
   name: () => 'Enter your name so we know who to reply to.',
   email: (f) =>
     f.validity.valueMissing
@@ -29,27 +30,10 @@ export function InquiryForm({ endpoint }: { endpoint: string | null }) {
   const form = useRef<HTMLFormElement>(null);
   const [status, setStatus] = useState<Status>({ tone: 'idle', message: '' });
 
-  const check = (field: HTMLInputElement | HTMLTextAreaElement) => {
-    const error = document.getElementById(`${field.id}-error`);
-    const invalid = !field.validity.valid;
-    field.setAttribute('aria-invalid', String(invalid));
-    if (error) error.textContent = invalid ? (messages[field.name]?.(field) ?? field.validationMessage) : '';
-    return !invalid;
-  };
-
-  const clear = (field: HTMLInputElement | HTMLTextAreaElement) => {
-    if (field.getAttribute('aria-invalid') !== 'true') return;
-    if (field.validity.valid) check(field);
-  };
-
   const onSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const el = form.current!;
-    const fields = Array.from(el.querySelectorAll<HTMLInputElement | HTMLTextAreaElement>('[required]'));
-    const results = fields.map(check);
-    const firstInvalid = fields[results.indexOf(false)];
-    if (firstInvalid) {
-      firstInvalid.focus();
+    if (!checkRequired(el, messages)) {
       setStatus({ tone: 'error', message: 'Some details are missing. Check the highlighted fields.' });
       return;
     }
@@ -101,8 +85,8 @@ export function InquiryForm({ endpoint }: { endpoint: string | null }) {
             autoComplete="name"
             required
             aria-describedby="inq-name-error"
-            onBlur={(e) => check(e.currentTarget)}
-            onInput={(e) => clear(e.currentTarget)}
+            onBlur={(e) => checkField(e.currentTarget, messages)}
+            onInput={(e) => clearField(e.currentTarget, messages)}
           />
           <p id="inq-name-error" className="field__error" />
         </div>
@@ -116,8 +100,8 @@ export function InquiryForm({ endpoint }: { endpoint: string | null }) {
             autoComplete="email"
             required
             aria-describedby="inq-email-error"
-            onBlur={(e) => check(e.currentTarget)}
-            onInput={(e) => clear(e.currentTarget)}
+            onBlur={(e) => checkField(e.currentTarget, messages)}
+            onInput={(e) => clearField(e.currentTarget, messages)}
           />
           <p id="inq-email-error" className="field__error" />
         </div>

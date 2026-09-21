@@ -58,3 +58,25 @@ swift scripts/media/cutout.swift photo.jpg /tmp/objects/name.png --choke 1 --lar
 
 Then add the file to `src/content/media.ts` with its alt text, size, and credit — a photograph
 without a credit there is a bug, and the footer renders what it finds.
+
+## The survey
+
+`/survey/` is the outreach form: it asks a business what eats up its week, so there is something
+real to build from. Questions and option lists live in `src/content/survey.ts`.
+
+Answers post to whatever `contact.surveyEndpoint` in `src/content/site.json` points at. Until it is
+set, the page still builds and the build prints a warning — the form has nowhere to save to.
+
+`scripts/survey-sheet.gs` turns a Google Sheet into that endpoint: it appends one row per answer,
+adds columns it has not seen before, and emails a copy. Its own header comments carry the five-step
+setup. Any endpoint accepting a `POST` with a JSON body works instead; the request is sent as
+`text/plain` so it stays free of a CORS preflight, which a Google Apps Script cannot answer.
+
+Send a separate link per recipient to see who replied:
+
+```
+https://qbitlab.tech/survey/?ref=barbaras-flowers
+```
+
+`ref` is saved with the answer and is otherwise ignored. Submit the form once after setting the
+endpoint and check the row arrives — a wrong deployment setting fails silently until you do.
