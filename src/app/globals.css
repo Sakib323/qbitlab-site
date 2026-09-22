@@ -1248,6 +1248,65 @@
     color: var(--ink-2);
   }
 
+  /* --------------------------------------------------------------- legal */
+
+  .legal {
+    padding-block: clamp(48px, 8vh, 88px) clamp(64px, 10vh, 120px);
+  }
+
+  .legal__inner {
+    max-width: calc(680px + var(--gutter) * 2);
+  }
+
+  .legal__title {
+    margin: 0;
+    font-size: clamp(32px, 2.6vw + 16px, 48px);
+    line-height: 1.1;
+    font-weight: 600;
+    letter-spacing: -0.03em;
+  }
+
+  .legal__updated {
+    margin: 10px 0 0;
+    font-size: 14px;
+    color: var(--ink-3);
+  }
+
+  .legal p {
+    margin: 0 0 20px;
+    max-width: 68ch;
+    font-size: 17px;
+    line-height: 1.55;
+    color: var(--ink-2);
+  }
+
+  .legal h2 {
+    margin: 40px 0 14px;
+    font-size: 21px;
+    font-weight: 600;
+    letter-spacing: -0.015em;
+    color: var(--ink);
+  }
+
+  .legal__list {
+    margin: 0 0 20px;
+    padding-left: 22px;
+    max-width: 68ch;
+    font-size: 17px;
+    line-height: 1.55;
+    color: var(--ink-2);
+  }
+  .legal__list li {
+    margin-bottom: 6px;
+  }
+  .legal__list strong {
+    color: var(--ink);
+  }
+
+  .legal a {
+    color: var(--link);
+  }
+
   /* --------------------------------------------------------------- form */
 
   .form {

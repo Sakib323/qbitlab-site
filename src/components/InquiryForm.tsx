@@ -1,5 +1,6 @@
 'use client';
 
+import Link from 'next/link';
 import { useRef, useState, type FormEvent } from 'react';
 import { checkField, checkRequired, clearField, type Messages } from '@/lib/form';
 
@@ -151,6 +152,13 @@ export function InquiryForm({ endpoint }: { endpoint: string | null }) {
         </button>
         <p className="form__status" role="status" aria-live="polite" data-tone={status.tone}>
           {status.message}
+        </p>
+        <p className="field__hint">
+          See our{' '}
+          <Link href="/privacy/" target="_blank">
+            privacy policy
+          </Link>{' '}
+          for what we do with this.
         </p>
       </div>
     </form>

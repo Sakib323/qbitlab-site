@@ -325,6 +325,13 @@ export function SurveyForm({ endpoint, email }: { endpoint: string | null; email
             <span>I’m happy for QBitLab to contact me about my answers.</span>
           </label>
           <p id="sv-consent-error" className="field__error" />
+          <p className="field__hint">
+            See our{' '}
+            <Link href="/privacy/" target="_blank">
+              privacy policy
+            </Link>{' '}
+            for what we do with this.
+          </p>
         </div>
       </fieldset>
 
