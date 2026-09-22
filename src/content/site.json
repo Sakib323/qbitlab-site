@@ -8,6 +8,6 @@
     "whatsappMessage": "Hi QBitLab, I'd like to talk about a project.",
     "formEndpoint": null,
     "email": "info@qbitlab.tech",
-    "surveyEndpoint": null
+    "surveyEndpoint": "https://script.google.com/macros/s/AKfycbzVh1tZn3TKUaOSRz_0-sMpj1QH2vivxeYrM1d1EbChtMpQ36_b7MmA_oCyU5F9YqZn/exec"
   }
 }
