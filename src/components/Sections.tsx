@@ -397,7 +397,10 @@ export function Contact() {
 
 // Kept separate from the section nav passed in as `nav` — this is a real page,
 // not a scroll anchor, and doesn't belong in the sticky top nav's scroll-spy.
-const LEGAL_LINKS = [{ href: '/privacy/', label: 'Privacy' }];
+const LEGAL_LINKS = [
+  { href: '/privacy/', label: 'Privacy' },
+  { href: '/terms/', label: 'Terms' },
+];
 
 export function Footer({ nav }: { nav: { href: string; label: string }[] }) {
   return (
